@@ -204,7 +204,7 @@ static void wifi_setup_task(void *args)
     vTaskDelay(pdMS_TO_TICKS(100));
 
     sl_wfx_host_set_hif(wifi_device_ctx,
-                        gpio_ctx,
+                        gpio_ctx_t0,
                         wifi_irq_port, 0,
                         wifi_wup_rst_port, 0,
                         wifi_wup_rst_port, 1);

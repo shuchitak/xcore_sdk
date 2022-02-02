@@ -37,8 +37,8 @@ static inline int aic3204_reg_write(uint8_t reg, uint8_t val)
 int aic3204_init(void)
 {
     const rtos_gpio_port_id_t codec_rst_port = rtos_gpio_port(PORT_CODEC_RST_N);
-    rtos_gpio_port_enable(gpio_ctx, codec_rst_port);
-    rtos_gpio_port_out(gpio_ctx, codec_rst_port, 0xF);
+    rtos_gpio_port_enable(gpio_ctx_t0, codec_rst_port);
+    rtos_gpio_port_out(gpio_ctx_t0, codec_rst_port, 0xF);
 
 	if (
 		// Set register page to 0

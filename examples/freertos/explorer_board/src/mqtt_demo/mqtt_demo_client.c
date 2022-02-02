@@ -39,7 +39,7 @@ typedef struct net_conn_args
 void messageArrived(MessageData* data)
 {
     val ^= 1;
-    rtos_gpio_port_out(gpio_ctx, led_port, val);
+    rtos_gpio_port_out(gpio_ctx_t0, led_port, val);
 
 	debug_printf("Message arrived on topic %.*s: %.*s\n", data->topicName->lenstring.len, data->topicName->lenstring.data,
 		data->message->payloadlen, data->message->payload);
@@ -305,7 +305,7 @@ static void mqtt_demo_connect( void* arg )
 void mqtt_demo_create(UBaseType_t priority)
 {
     led_port = rtos_gpio_port(PORT_LEDS);
-    rtos_gpio_port_enable(gpio_ctx, led_port);
+    rtos_gpio_port_enable(gpio_ctx_t0, led_port);
 
     xTaskCreate(
             mqtt_demo_connect,

@@ -38,6 +38,9 @@ project(explorer_board)
 ## Enable languages for project
 enable_language(CXX C ASM)
 
+## Get platform sources
+include(${CMAKE_CURRENT_SOURCE_DIR}/platform/platform.cmake)
+
 ## Set XMOS application variables
 set(APP_COMPILER_FLAGS
     "-Os"
@@ -48,16 +51,11 @@ set(APP_COMPILER_FLAGS
     "-mcmodel=large"
     "-Wno-xcore-fptrgroup"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/config.xscope"
-    "${CMAKE_CURRENT_SOURCE_DIR}/${BOARD}.xn"
+    "${PLATFORM_COMPILE_FLAGS}"
 )
 
 set(APP_SOURCES
     "src/main.c"
-    "src/platform/aic3204.c"
-    "src/platform/app_pll_ctrl.c"
-    "src/platform/driver_instances.c"
-    "src/platform/platform_init.c"
-    "src/platform/platform_start.c"
     "src/audio_pipeline/audio_pipeline.c"
     "src/example_pipeline/example_pipeline.c"
     "src/gpio_ctrl/gpio_ctrl.c"
@@ -74,12 +72,14 @@ set(APP_SOURCES
     "src/mqtt_demo/mqtt_demo_client.c"
     "src/mem_analysis/mem_analysis.c"
     ${XMOS_RTOS_PLATFORM_WITH_NETWORKING_SOURCES}
+    ${PLATFORM_SOURCES}
 )
 
 set(APP_INCLUDES
     "src"
     "src/udp_cli"
     ${XMOS_RTOS_PLATFORM_WITH_NETWORKING_INCLUDES}
+    ${PLATFORM_INCLUDES}
 )
 
 add_compile_definitions(
